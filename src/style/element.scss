@@ -1,0 +1,38 @@
+@import "common";
+// 左侧导航
+.plat-menu{
+    border: none;
+    .el-submenu__title{
+        padding: 0 30px!important;
+    }
+    .is-opened{
+        .el-submenu__title{
+            color: $stress-color;
+            font-weight: bold;
+        }
+    }
+    .el-menu-item{
+        padding: 0 30px!important;
+    }
+    .is-opened{
+        .el-submenu__icon-arrow{
+            display: none;
+        }
+        s{
+            display: inline-block!important;
+        }
+        .el-submenu__title i{
+            color: $stress-color;
+        }
+    }
+    .el-submenu__icon-arrow{
+        display: none;
+    }
+    .el-menu-item.is-active{
+        color: $stress-color;
+        font-weight: bold;
+    }
+    .el-menu-item:focus, .el-menu-item:hover{
+        background-color: rgba(0, 0, 0, .1);
+    }
+}
