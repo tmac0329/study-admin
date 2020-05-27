@@ -1,46 +1,57 @@
 <template>
     <div class="container">
         <el-container>
-            <el-aside width="250px">
-                <div class="logo">
-                    <span class="sys-name">学习系统</span>
+            <el-header height="50px">
+                <div class="l">
+                    <i class="el-icon-s-fold i-fold"></i>
+                    <div class="logo">
+                        <img src="@/assets/images/logo.png" alt="">
+                    </div>
                 </div>
-                <p class="slogen">自律使你自由</p>
-                <el-menu
-                    default-active="1-1"
-                    class="plat-menu">
-                    <el-submenu index="1">
-                        <template slot="title">
-                            <div class="menu-title">
-                                <div>
-                                    <i class="el-icon-location"></i>
-                                    <span>导航一</span>
-                                </div>
-                                <s></s>
-                            </div>
-                        </template>
-                        <el-menu-item index="1-1">选项1</el-menu-item>
-                        <el-menu-item index="1-2">选项2</el-menu-item>
-                        <el-menu-item index="1-3">选项3</el-menu-item>
-                    </el-submenu>
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">导航二</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
-                    </el-menu-item>
-                </el-menu>
-            </el-aside>
-            <el-main>Main</el-main>
+                <div class="r">
+                    <div class="avatar">
+                        <img src="@/assets/images/avatar_default.png" alt="">
+                    </div>
+                </div>
+            </el-header>
+            <el-container>
+                <el-aside width="240px">
+                    <el-menu
+                        :router="true"
+                        :default-active="currentPath"
+                        class="plat-menu">
+                        <sidebar-item v-for="route in routers" :key="route.path" :item="route" :parentPath="route.path"/>
+                    </el-menu>
+                </el-aside>
+                <el-main>
+                    <transition name="main-anim">
+                        <router-view/>
+                    </transition>
+                </el-main>
+            </el-container>
         </el-container>
     </div>
 </template>
 
 <script>
+import SidebarItem from '@/components/home/SidebarItem'
 export default {
-    
+    components:{
+        SidebarItem
+    },
+    data(){
+        return{
+            
+        }
+    },
+    methods:{
+        
+    },
+    created(){
+        this.routers = this.$router.options.routes;
+        this.currentPath = this.$route.path;
+        console.log(this.$route.path);
+    }
 }
 </script>
 
@@ -49,52 +60,64 @@ export default {
 .container{
     height: 100%;
     .el-container{
-        height: 100%; 
-        display: flex;
-        .el-aside{
-            flex-shrink: 0;
-            flex-grow: 0;
+        height: 100%;
+        .el-header{
             background: #fff;
-            margin: 15px;
-            border-radius: 6px;
-            .logo{
+            box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px 0px;
+            position: relative;
+            z-index: 9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .l{
+                height: 100%;
                 display: flex;
-                margin: 20px 0 0;
-                justify-content: center;
                 align-items: center;
-                font-size: 20px;
-                color: #42276a;
-                font-weight: 700;
-            }
-            .slogen{
-                text-align: center;
-                font-size: 14px;
-                color: #42276a;
-                margin-top: 10px;
-            }
-            .el-menu{
-                margin-top: 20px;
-                .menu-title{
+                .i-fold{
+                    width: 50px;
+                    height: 50px;
                     display: flex;
+                    justify-content: center;
                     align-items: center;
-                    justify-content: space-between;
-                    s{
-                        display: none;
-                        width: 15px;
-                        height: 15px;
-                        border-radius: 50%;
-                        border: 2px solid $stress-color;
+                    background: $theme-color;
+                    color: #fff;
+                    font-size: 25px;
+                    cursor: pointer;
+                }
+                .logo{
+                    width: 80px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    img{
+                        width: 35px;
+                    }
+                }
+            }
+            .r{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                .avatar{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 40px;
+                    img{
+                        width: 28px;
                     }
                 }
             }
         }
-        .el-main{
-            flex-grow: 1;
-            flex-shrink: 1;
+        .el-aside{
             background: #fff;
-            border-radius: 6px;
-            margin: 15px 15px 15px 0;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px 0px;
+        }
+        .el-main{
+            overflow-x: hidden;
         }
     }
 }
+
 </style>
