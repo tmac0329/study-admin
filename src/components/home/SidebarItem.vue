@@ -4,14 +4,16 @@
             <el-submenu :index="item.path">
                 <template slot="title">
                     <i :class="item.meta.icon?item.meta.icon:''"></i>
-                    <span>{{item.meta.title}}</span>
+                    <span>{{item.meta.title || ''}}</span>
                 </template>
-                <el-menu-item v-for="child in item.children" :key="child.path" :index="resolvePath(child.path)">{{child.meta.title}}</el-menu-item>
+                <template v-for="child in item.children" >
+                    <el-menu-item :key="child.path" v-if="!child.hideInMenu" :index="resolvePath(child.path)">{{child.meta && child.meta.title ? child.meta.title : ''}}</el-menu-item>
+                </template>
             </el-submenu>
         </template>
         <el-menu-item v-else :index="resolvePath(item.path)">
             <i :class="item.meta.icon?item.meta.icon:''"></i>
-            <span slot="title">{{item.meta.title}}</span>
+            <span slot="title">{{item.meta.title || ''}}</span>
         </el-menu-item>
     </div>
 </template>

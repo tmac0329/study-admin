@@ -116,6 +116,7 @@ export default {
         }
         .el-main{
             overflow-x: hidden;
+            height: 100%;
         }
     }
 }

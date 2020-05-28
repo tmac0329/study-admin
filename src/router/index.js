@@ -23,8 +23,50 @@ const routers = [
                     title:'vue-router',
                     icon:''
                 },
-                component: () => import('@/views/study-group/vue-router-study')
+                component: () => import('@/views/study-group/vue-router-study'),
+                children:[
+                    {
+                        path : 'multiview',
+                        hideInMenu:true,
+                        component: () => import('@/views/study-group/vue-router/vue-router-multiview')
+                    },
+                ]
             },
+            // vue-router学习路由
+            {
+                path : 'vue-router-example',
+                hideInMenu:true,
+                component: () => import('@/views/study-group/vue-router/vue-router-example')
+            },
+            {
+                path : 'vue-router-example/:id',
+                hideInMenu:true,
+                component: () => import('@/views/study-group/vue-router/vue-router-example')
+            },
+            {
+                path : 'vue-router-example-*',
+                hideInMenu:true,
+                component: () => import('@/views/study-group/vue-router/vue-router-example')
+            },
+            {
+                path : 'vue-router-404',
+                hideInMenu:true,
+                redirect : 'vue-router-example'
+            },
+            {
+                path : 'vue-router-test-alias',
+                alias : 'vue-router-alias',
+                hideInMenu:true,
+                component: () => import('@/views/study-group/vue-router/vue-router-example')
+            },
+            {
+                path : 'vue-router-params',
+                name : 'VueTransportParams',
+                props:true,
+                hideInMenu:true,
+                component: () => import('@/views/study-group/vue-router/vue-router-example')
+            },
+            // end
             {
                 path : 'vuex-study',
                 meta:{
