@@ -4,7 +4,7 @@
             <el-header height="50px">
                 <div class="l">
                     <i class="el-icon-s-fold i-fold"></i>
-                    <div class="logo">
+                    <div class="logo" @click="testFun">
                         <img src="@/assets/images/logo.png" alt="">
                     </div>
                 </div>
@@ -45,12 +45,14 @@ export default {
         }
     },
     methods:{
-        
+        testFun(){
+            console.log(this.$store.state);
+        }
     },
     created(){
         this.routers = this.$router.options.routes;
         this.currentPath = this.$route.path;
-        console.log(this.$route.path);
+        // console.log(this);
     }
 }
 </script>

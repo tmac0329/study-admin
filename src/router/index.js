@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routers = [
+const constantRoutes = [
     {
         path:'/',
         redirect:'/study/vue-router-study',
@@ -96,9 +96,46 @@ const routers = [
     }
 ];
 
+const asyncRoutes = [
+    {
+        path:'/permission',
+        meta:{
+            title:'权限管理',
+            icon:'el-icon-setting'
+        },
+        component: () => import('@/components/layout'),
+        children:[
+            {
+                path:'index',
+                meta:{
+                    title:'首页'
+                },
+                component: () => import('@/views/permission/manage')
+            },
+            {
+                path:'admin',
+                meta:{
+                    title:'admin权限页',
+                    roles:['admin']
+                },
+                component: () => import('@/views/permission/admin')
+            },
+            {
+                path:'simple',
+                meta:{
+                    title:'simple权限页',
+                    roles:['simple']
+                },
+                component: () => import('@/views/permission/simple')
+            }
+        ]
+    }
+]
+
 const router = new VueRouter({
     mode:'history',
-    routes:[...routers]
+    routes:[...constantRoutes]
 })
 
 export default router;
+export {constantRoutes,asyncRoutes};
