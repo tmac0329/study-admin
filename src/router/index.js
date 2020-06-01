@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -101,14 +102,16 @@ const asyncRoutes = [
         path:'/permission',
         meta:{
             title:'权限管理',
-            icon:'el-icon-setting'
+            icon:'el-icon-setting',
+            roles:['super','admin','simple']
         },
         component: () => import('@/components/layout'),
         children:[
             {
                 path:'index',
                 meta:{
-                    title:'首页'
+                    title:'首页',
+                    roles:['super','admin','simple']
                 },
                 component: () => import('@/views/permission/manage')
             },
@@ -116,7 +119,7 @@ const asyncRoutes = [
                 path:'admin',
                 meta:{
                     title:'admin权限页',
-                    roles:['admin']
+                    roles:['admin','super']
                 },
                 component: () => import('@/views/permission/admin')
             },
@@ -124,7 +127,7 @@ const asyncRoutes = [
                 path:'simple',
                 meta:{
                     title:'simple权限页',
-                    roles:['simple']
+                    roles:['simple','super']
                 },
                 component: () => import('@/views/permission/simple')
             }
@@ -136,6 +139,15 @@ const router = new VueRouter({
     mode:'history',
     routes:[...constantRoutes]
 })
+
+export function resetRouter(){
+    const newRouter = new VueRouter({
+        mode: 'history',
+        scrollBehavior: () => ({ y: 0 }),
+        routes: [...constantRoutes]
+    })
+    router.matcher = newRouter.matcher
+}
 
 export default router;
 export {constantRoutes,asyncRoutes};

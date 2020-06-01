@@ -20,7 +20,7 @@
                         :router="true"
                         :default-active="currentPath"
                         class="plat-menu">
-                        <sidebar-item v-for="route in routers" :key="route.path" :item="route" :parentPath="route.path"/>
+                        <sidebar-item v-for="route in permission.accessRoutes" :key="route.path" :item="route" :parentPath="route.path"/>
                     </el-menu>
                 </el-aside>
                 <el-main>
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import SidebarItem from '@/components/home/SidebarItem'
 export default {
     components:{
@@ -44,15 +45,25 @@ export default {
             
         }
     },
+    computed:{
+        ...mapGetters([
+            'permission',
+            'user'
+        ])
+    },
     methods:{
         testFun(){
-            console.log(this.$store.state);
+            console.log("currentRoles",this.user);
+            this.$store.dispatch('user/changeRoles',['admin']);
+            // console.log('accessRoutes',this.permission.accessRoutes);
+            // console.log(564,this.user.roles);
         }
     },
     created(){
-        this.routers = this.$router.options.routes;
+        // this.routers = this.$router.options.routes;
+        // console.log(111,this.permission);
+        // this.routers = this.permission.accessRoutes;
         this.currentPath = this.$route.path;
-        // console.log(this);
     }
 }
 </script>

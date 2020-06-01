@@ -1,11 +1,11 @@
 <template>
     <div>
-        <el-card class="info-container">
+        <el-card class="info-container" :key="user.roleKey">
             <div slot="header" class="header">
-                <span>当前系统权限</span>
+                <span>当前系统权限{{user.roleKey}}</span>
                 <el-button type="text">{{currentPermissionList}}</el-button>
             </div>
-            <div v-for="(permission,index) in sysPermissionList" :key="index" class="item">
+            <div v-for="(permission,index) in sysPermissionList" :key="index" class="item" @click="changeRoles(permission)" v-hasPermission="['super']">
                 <el-button type="text">{{permission}}</el-button>
                 <img src="@/assets/images/logo.png" class="avatar"/>
             </div>
@@ -14,11 +14,24 @@
 </template>
 
 <script>
+import hasPermission from '@/directive/permission'
+import { mapGetters } from 'vuex'
 export default {
+    directives:{
+        hasPermission
+    },
     data(){
         return {
             currentPermissionList:['admin','simple'],
             sysPermissionList:['admin','simple','super']
+        }
+    },
+    computed:{
+        ...mapGetters(['user'])
+    },
+    methods:{
+        changeRoles(permission){
+            this.$store.dispatch('user/changeRoles',permission);
         }
     }
 }
