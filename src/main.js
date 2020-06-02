@@ -9,13 +9,10 @@ import '@/style/element.scss'
 
 // 权限验证
 import '@/feature/permission'
-// 自定义插件
-import CommonDialog from './customPlugins/commonDialog'
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI);
-Vue.use(CommonDialog);
 
 new Vue({
   router,

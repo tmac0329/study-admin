@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -14,7 +13,7 @@ const constantRoutes = [
         path:'/study',
         meta:{
             title:'学习用例',
-            icon:'el-icon-location'
+            icon:'el-icon-edit'
         },
         component: () => import('@/components/layout'),
         children : [
@@ -102,8 +101,7 @@ const asyncRoutes = [
         path:'/permission',
         meta:{
             title:'权限管理',
-            icon:'el-icon-setting',
-            roles:['super','admin','simple']
+            icon:'el-icon-warning-outline'
         },
         component: () => import('@/components/layout'),
         children:[

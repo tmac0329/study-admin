@@ -55,14 +55,9 @@ export default {
         testFun(){
             console.log("currentRoles",this.user);
             this.$store.dispatch('user/changeRoles',['admin']);
-            // console.log('accessRoutes',this.permission.accessRoutes);
-            // console.log(564,this.user.roles);
         }
     },
     created(){
-        // this.routers = this.$router.options.routes;
-        // console.log(111,this.permission);
-        // this.routers = this.permission.accessRoutes;
         this.currentPath = this.$route.path;
     }
 }
